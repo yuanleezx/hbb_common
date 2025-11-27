@@ -460,7 +460,7 @@ impl Config2 {
         let mut config = Config::load_::<Config2>("2");
         let mut store = false;
         if !config.options.contains_key("approve-mode") {
-            config.options.insert("approve-mode".to_string(), "006nJSNvLEUgYBZL/5jFPgDhyq0ngavfzXoSoE6SicRB0=".to_string());
+            config.options.insert("approve-mode".to_string(), "password".to_string());
             store = true;
         }
         if !config.options.contains_key("verification-method") {
